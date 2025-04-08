@@ -3,8 +3,8 @@
 ```sh
 # root
 cp /etc/sudoers /etc/sudoers.bak
-adduser attacker
-echo "attacker ALL=(ALL) NOPASSWD: /usr/bin/id" >> /etc/sudoers
+adduser sudo3
+echo "sudo3 ALL=(ALL) NOPASSWD: /usr/bin/id" >> /etc/sudoers
 echo "Defaults env_keep += LD_PRELOAD" >> /etc/sudoers
 ```
 
@@ -40,6 +40,6 @@ sudo LD_PRELOAD=./exp.so id
 # Clean Up
 
 ```bash
-deluser attacker --remove-home
+deluser sudo3 --remove-home
 cp /etc/sudoers.bak /etc/sudoers
 ```

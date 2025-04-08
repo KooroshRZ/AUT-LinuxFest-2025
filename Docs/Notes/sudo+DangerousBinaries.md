@@ -3,8 +3,8 @@
 ```sh
 # root
 cp /etc/sudoers /etc/sudoers.bak
-adduser attacker
-echo "attacker ALL=(ALL) NOPASSWD: /usr/bin/vi" >> /etc/sudoers
+adduser sudo0
+echo "sudo0 ALL=(ALL) NOPASSWD: /usr/bin/vi" >> /etc/sudoers
 ```
 
 # Exploit
@@ -17,7 +17,7 @@ sudo vi
 # Clean Up
 
 ```bash
-deluser attacker --remove-home
+deluser sudo0 --remove-home
 cp /etc/sudoers.bak /etc/sudoers
 ```
 
